@@ -1,4 +1,5 @@
 import cn.hutool.core.lang.Dict
+import cn.hutool.core.util.StrUtil
 import cn.hutool.extra.template.TemplateConfig
 import cn.hutool.extra.template.TemplateConfig.ResourceMode
 import cn.hutool.extra.template.TemplateUtil
@@ -6,6 +7,9 @@ import cn.hutool.json.JSONUtil
 import org.ktorm.database.Database
 import org.ktorm.database.asIterable
 import org.ktorm.support.mysql.MySqlDialect
+import kotlin.reflect.KParameter
+import kotlin.reflect.full.instanceParameter
+import kotlin.reflect.full.valueParameters
 
 
 fun main(args: Array<String>) {
@@ -29,44 +33,71 @@ fun main(args: Array<String>) {
     val engine = TemplateUtil.createEngine(TemplateConfig("templates", ResourceMode.CLASSPATH))
     val format = engine.getTemplate("test.ftl").render(Dict.create().set("tableNames",tableNames))
     println(format)
+    val tableInfos = arrayListOf<TableInfo>()
     tableNames.forEach {
-        println("---------------tableName: $it ----------------")
-
-
         val tableName = "$databaseName.$it"
 
+        println("---------------tableName: $tableName ----------------")
+        val tableInfo = TableInfo(it)
+
+
         database.useConnection { con ->
-            val sql = "describe $tableName"
-            val tableInfos = con.prepareStatement(sql).use { pre ->
+            val sql = "select * from information_schema.columns where table_name = ? and table_schema = ?"
+            val columnInfos = con.prepareStatement(sql).use { pre ->
+                pre.setString(1,it)
+                pre.setString(2,databaseName)
                 pre.executeQuery().asIterable().map { res ->
-                    TableInfo(
-                        res.getString("field"),
-                        res.getString("type"),
-                        res.getString("null"),
-                        res.getString("key"),
-                        if(res.getObject("default") == null) "" else res.getObject("default").toString(),
-                        res.getString("extra")
-                    )
+                    val tableInfoValueParams = ::ColumnInfo.valueParameters
+                    val argsMap = HashMap<KParameter,Any>()
+                    tableInfoValueParams.elementAt(0).type
+                    for (tableInfoValueParam in tableInfoValueParams) {
+                        val value = res.getObject(StrUtil.toUnderlineCase(tableInfoValueParam.name))
+                        argsMap[tableInfoValueParam] = value
+
+                    }
+                    ::ColumnInfo.callBy(argsMap)
                 }
+
             }
-            for (tableInfo in tableInfos) {
-                val engine = TemplateUtil.createEngine(TemplateConfig("templates", ResourceMode.CLASSPATH))
-                val format = engine.getTemplate("test.ftl").render(JSONUtil.parseObj(tableInfo))
-                println(format)
-//                println("field: ${tableInfo.field} type: ${tableInfo.type} null: ${tableInfo.isNull} key: ${tableInfo.key} default: ${tableInfo.default} extra: ${tableInfo.extra}")
-            }
+            tableInfo.columnInfos = columnInfos
         }
 
-
+        tableInfos.add(tableInfo)
     }
 
 }
 
-class TableInfo(
-    val field: String,
-    val type: String,
-    val isNull: String,
-    val key: String,
-    val default: String,
-    val extra: String,
+data class TableInfo(
+    val tableName: String
+){
+    var columnInfos: List<ColumnInfo>? = null
+}
+
+data class ColumnInfo(
+    val tableCatalog: String,
+    /**
+     * 数据库名称
+     */
+    val tableSchema: String,
+    /**
+     * 列名、字段名
+     */
+    val columnName: String,
+    /**
+     * 序号位置
+     */
+    val ordinalPosition: Any,
+    /**
+     * 列默认值
+     */
+    val columnDefault: Any,
+    /**
+     * 是否可为null
+     */
+    val isNullable: Any,
+    /**
+     * 数据类型
+     */
+    val dataType: Any,
+
 )
