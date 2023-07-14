@@ -1,1 +1,10 @@
-package ${basePackage}.service.impl.${group}
+package ${basePackage}.service.impl
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class ${bigHumpTableName}ServiceImpl {
+
+}

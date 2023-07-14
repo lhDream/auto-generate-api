@@ -1,6 +1,24 @@
+package ${basePackage}
 
-<#--field: ${field?if_exists} type: ${type?if_exists} null: ${isNull?if_exists} key: ${key?if_exists} default: ${default?if_exists} extra: ${extra?if_exists}-->
-<#--tableNames: <#list tableNames as tableName>${tableName}<#if tableName_has_next>,</#if></#list>-->
-<#if tableNames??>
-    tableNames: <#list tableNames as tableName>${tableName}<#if tableName_has_next>,</#if></#list>
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+@Data
+@TableName("${tableName}")
+public class ${className}DO {
+
+<#if fields??>
+    <#list fields as field>
+        <#if field.name == "id">
+
+        </#if>
+
+        private ${field.type} ${field.name};
+    </#list>
 </#if>
+
+}

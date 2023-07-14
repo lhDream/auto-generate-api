@@ -1,1 +1,6 @@
-package ${basePackage}.controller.${group}
+package ${basePackage}.controller
+
+@Data
+public class ${bigHumpTableName}Controller {
+
+}
