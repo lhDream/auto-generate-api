@@ -1,4 +1,3 @@
-import cn.hutool.core.lang.Dict
 import cn.hutool.core.util.StrUtil
 import cn.hutool.extra.template.Template
 import cn.hutool.extra.template.TemplateConfig
@@ -11,8 +10,6 @@ import org.ktorm.database.Database
 import org.ktorm.database.asIterable
 import org.ktorm.support.mysql.MySqlDialect
 import java.io.File
-import java.nio.file.Files
-import java.nio.file.Paths
 import kotlin.reflect.KParameter
 import kotlin.reflect.full.valueParameters
 
@@ -66,7 +63,7 @@ fun main(args: Array<String>) {
 
     val pack = "com.aodun"
     val templates = arrayOf("controller","dao","mapper","model","service","serviceImpl")
-    val templatesSuffix = arrayOf("java","java",".xml","java","java","java")
+    val templatesSuffix = arrayOf("java","java","xml","java","java","java")
     val classFileName = arrayOf("Controller","Mapper","Mapper","DO","Service","ServiceImpl")
     tableInfos.forEach { tableInfo ->
         tableInfo.basePackage = pack
