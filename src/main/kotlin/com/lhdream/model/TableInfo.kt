@@ -9,13 +9,18 @@ data class TableInfo(
      */
     val tableName: String,
     /**
+     * 表描述内容，表注释
+     */
+    val tableComment: String,
+    /**
      * 大驼峰表名
      */
     val bigHumpTableName: String,
     /**
      * 小驼峰表名
      */
-    val smallHumpTableName: String
+    val smallHumpTableName: String,
+
 ){
     var basePackage: String = ""
     var columnInfos: List<ColumnInfo>? = null

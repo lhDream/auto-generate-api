@@ -1,7 +1,6 @@
 package com.lhdream.util
 
-import TableInfo
-import kotlin.reflect.KType
+import com.lhdream.model.TableInfo
 import kotlin.reflect.full.valueParameters
 
 /**

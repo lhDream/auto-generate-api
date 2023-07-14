@@ -7,7 +7,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
+/**
+ * ${tableComment}
+ */
 @Data
 @ApiModel
 @TableName("${tableName}")

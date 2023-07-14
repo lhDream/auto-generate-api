@@ -7,6 +7,9 @@ import tornadofx.*
  */
 class MainView: View() {
 
+    /**
+     * 界面布局
+     */
     override val root = anchorpane{
 
     }

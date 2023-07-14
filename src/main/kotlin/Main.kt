@@ -29,22 +29,24 @@ fun main(args: Array<String>) {
     val databaseName = "manage_sys"
     val tablePrefix = "tb_manage"
 
-    val tableNames = database.useConnection { con ->
-        val sql = "select table_name from information_schema.tables where table_schema = ?"
+    val tableInfos = database.useConnection { con ->
+        val sql = "select table_name,table_comment from information_schema.tables where table_schema = ?"
         con.prepareStatement(sql).use { pre ->
             pre.setString(1,databaseName)
-            pre.executeQuery().asIterable().map { it.getString(1) }
+            pre.executeQuery().asIterable().map {
+                val tableName = it.getString(1)
+                val tableComment = it.getString(2)
+                val smallHumpTableName = StrUtil.toCamelCase(tableName)
+                val bigHumpTableName = StrUtil.upperFirst(smallHumpTableName)
+                return@map TableInfo(tableName,tableComment,bigHumpTableName,smallHumpTableName)
+            }
         }
     }
-    val tableInfos = arrayListOf<TableInfo>()
-    tableNames.forEach {
-        val smallHumpTableName = StrUtil.toCamelCase(it)
-        val bigHumpTableName = StrUtil.upperFirst(smallHumpTableName)
-        val tableInfo = TableInfo(it,bigHumpTableName,smallHumpTableName)
+    tableInfos.forEach { tableInfo ->
         database.useConnection { con ->
             val sql = "select * from information_schema.columns where table_name = ? and table_schema = ?"
             val columnInfos = con.prepareStatement(sql).use { pre ->
-                pre.setString(1,it)
+                pre.setString(1,tableInfo.tableName)
                 pre.setString(2,databaseName)
                 pre.executeQuery().asIterable().map { res ->
                     val columnInfoValueParams = ::ColumnInfo.valueParameters
@@ -58,7 +60,6 @@ fun main(args: Array<String>) {
             }
             tableInfo.columnInfos = columnInfos
         }
-        tableInfos.add(tableInfo)
     }
 
     val templateConfig = TemplateConfig("templates", ResourceMode.CLASSPATH)
@@ -66,6 +67,7 @@ fun main(args: Array<String>) {
     val pack = "com.aodun"
     val templates = arrayOf("controller","dao","mapper","model","service","serviceImpl")
     val templatesSuffix = arrayOf("java","java",".xml","java","java","java")
+    val classFileName = arrayOf("Controller","Mapper","Mapper","DO","Service","ServiceImpl")
     tableInfos.forEach { tableInfo ->
         tableInfo.basePackage = pack
         for (i in templates.indices){
@@ -73,7 +75,8 @@ fun main(args: Array<String>) {
             val engine = TemplateUtil.createEngine(templateConfig)
             val template: Template = engine.getTemplate("$templateName.ftl")
             val result: String = template.render(JSONUtil.parseObj(tableInfo))
-            val file = File("D://testFile/test/" + tableInfo.basePackage.replace(".", "/") + "/$templateName/${tableInfo.bigHumpTableName}${StrUtil.upperFirst(templateName)}.${templatesSuffix[i]}")
+            val fileName = StrUtil.upperFirst(StrUtil.toCamelCase(tableInfo.tableName.substring(tablePrefix.length)))
+            val file = File("D://testFile/test/" + tableInfo.basePackage.replace(".", "/") + "/$templateName/$fileName${classFileName[i]}.${templatesSuffix[i]}")
             if(!file.parentFile.exists()){
                 file.parentFile.mkdirs()
             }
