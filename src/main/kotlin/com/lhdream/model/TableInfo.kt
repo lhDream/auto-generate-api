@@ -20,6 +20,14 @@ data class TableInfo(
      * 小驼峰表名
      */
     val smallHumpTableName: String,
+    /**
+     * 小驼峰类名
+     */
+    val smallClassName: String,
+    /**
+     * 类名
+     */
+    val className: String,
 
 ){
     var basePackage: String = ""

@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @ApiModel
 @TableName("${tableName}")
-public class ${bigHumpTableName}DO {
+public class ${className}DO {
 
 <#if columnInfos??>
     <#list columnInfos as columnInfo>

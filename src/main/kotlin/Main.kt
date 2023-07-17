@@ -19,12 +19,12 @@ fun main(args: Array<String>) {
         url = "jdbc:mysql://localhost:3306",
         driver = "com.mysql.cj.jdbc.Driver",
         user = "root",
-        password = "aodun@2012",
+        password = "lhDream@123",
         dialect = MySqlDialect()
     )
 
-    val databaseName = "manage_sys"
-    val tablePrefix = "tb_manage"
+    val databaseName = "user_manager"
+    val tablePrefix = "tb_"
 
     val tableInfos = database.useConnection { con ->
         val sql = "select table_name,table_comment from information_schema.tables where table_schema = ?"
@@ -35,7 +35,9 @@ fun main(args: Array<String>) {
                 val tableComment = it.getString(2)
                 val smallHumpTableName = StrUtil.toCamelCase(tableName)
                 val bigHumpTableName = StrUtil.upperFirst(smallHumpTableName)
-                return@map TableInfo(tableName,tableComment,bigHumpTableName,smallHumpTableName)
+                val smallClassName = StrUtil.toCamelCase(tableName.substring(tablePrefix.length))
+                val className = StrUtil.upperFirst(smallClassName)
+                return@map TableInfo(tableName,tableComment,bigHumpTableName,smallHumpTableName,smallClassName,className)
             }
         }
     }

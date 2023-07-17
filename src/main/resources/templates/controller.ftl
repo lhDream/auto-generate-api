@@ -15,20 +15,20 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 @Api(value = "${tableComment}", tags = {"${tableComment}"})
-@RequestMapping("/${smallHumpTableName}")
-public class ${bigHumpTableName}Controller {
+@RequestMapping("/${smallClassName}")
+public class ${className}Controller {
     /*
      * ${tableComment}
      */
-    private final ${bigHumpTableName}Service ${smallHumpTableName}Service;
+    private final ${className}Service ${smallClassName}Service;
 
     /**
      * 添加
      */
     @ApiOperation(value = "添加")
     @PostMapping("/add")
-    public CustomizeResult<?> add(@Valid @RequestBody CommonEntity<${bigHumpTableName}DO> param){
-        return CustomizeResult.success(${smallHumpTableName}Service.add(param.getData()));
+    public CustomizeResult<?> add(@Valid @RequestBody CommonEntity<${smallClassName}DO> param){
+        return CustomizeResult.success(${smallClassName}Service.add(param.getData()));
     }
 
     /**
@@ -37,7 +37,7 @@ public class ${bigHumpTableName}Controller {
     @ApiOperation(value = "删除")
     @PostMapping("/del")
     public CustomizeResult<?> del(@Valid @RequestBody CommonEntity<IdDto> param){
-        return CustomizeResult.success(${smallHumpTableName}Service.removeById(param.getData().getId()));
+        return CustomizeResult.success(${smallClassName}Service.removeById(param.getData().getId()));
     }
 
     /**
@@ -45,8 +45,8 @@ public class ${bigHumpTableName}Controller {
     */
     @ApiOperation(value = "修改")
     @PostMapping("/upd")
-    public CustomizeResult<?> upd(@Valid @RequestBody CommonEntity<${bigHumpTableName}DO> param){
-        return CustomizeResult.success(${smallHumpTableName}Service.add(param.getData()));
+    public CustomizeResult<?> upd(@Valid @RequestBody CommonEntity<${className}DO> param){
+        return CustomizeResult.success(${smallClassName}Service.add(param.getData()));
     }
 
     /**
@@ -55,7 +55,7 @@ public class ${bigHumpTableName}Controller {
     @ApiOperation(value = "查询详情")
     @PostMapping("/selOne")
     public CustomizeResult<?> selOne(@Valid @RequestBody CommonEntity<IdDto> param){
-        return CustomizeResult.success(${smallHumpTableName}Service.getById(param.getData().getId()));
+        return CustomizeResult.success(${smallClassName}Service.getById(param.getData().getId()));
     }
 
     /**
@@ -63,7 +63,7 @@ public class ${bigHumpTableName}Controller {
     */
     @ApiOperation(value = "查询列表")
     @PostMapping("/selAll")
-    public CustomizeResult<?> selAll(@Valid @RequestBody CommonEntity<${bigHumpTableName}DO> param){
+    public CustomizeResult<?> selAll(@Valid @RequestBody CommonEntity<${className}DO> param){
         return CustomizeResult.success(tbTaskTypeInfoService.list(new QueryWrapper<>(param.getData())));
     }
 

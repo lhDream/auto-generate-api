@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "1.7.10"
     application
     id("org.openjfx.javafxplugin").version("0.0.10")
 }
@@ -10,6 +10,12 @@ group = "com.lhdream"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    maven(url = "https://maven.aliyun.com/repository/central")
+    maven(url = "https://maven.aliyun.com/repository/public")
+    maven(url = "https://maven.aliyun.com/repository/gradle-plugin")
+    maven(url = "https://maven.aliyun.com/repository/apache-snapshots")
+    maven(url = "https://maven.aliyun.com/repository/grails-core")
+    maven(url = "https://jitpack.io")
     mavenCentral()
 }
 
