@@ -83,7 +83,7 @@ class MainView: View() {
                         )
                         alert(
                             type = Alert.AlertType.ERROR,
-                            header = "提示",
+                            header = "完成",
                             owner = primaryStage)
                     }
                 }
