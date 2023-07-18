@@ -11,7 +11,7 @@ class MainView: View() {
      * 界面布局
      */
     override val root = anchorpane{
-
+        this.style = "-fx-background-color: red;"
     }
 
 }
