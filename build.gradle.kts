@@ -15,12 +15,23 @@ plugins {
 group = "com.lhdream"
 version = "1.0-SNAPSHOT"
 
+buildscript{
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    // 引入插件
+    dependencies {
+        classpath("io.github.fvarrui:javapackager:1.7.2")
+    }
+}
 
 allprojects {
 
     apply{
         plugin("org.jetbrains.kotlin.jvm")
         plugin("org.gradle.application")
+        plugin("io.github.fvarrui.javapackager.plugin")
     }
 
     repositories {
@@ -36,6 +47,7 @@ allprojects {
     dependencies{
         testImplementation(kotlin("test"))
         implementation("cn.hutool:hutool-all:$hutoolVersion")
+
     }
 }
 
