@@ -28,8 +28,10 @@ data class TableInfo(
      * 类名
      */
     val className: String,
-
+    /**
+     * 字段信息列表
+     */
+    val columnInfos: List<ColumnInfo>
 ){
     var basePackage: String = ""
-    var columnInfos: List<ColumnInfo>? = null
 }

@@ -30,5 +30,4 @@ data class ColumnInfo(
      * 字段注释
      */
     val columnComment: String?
-
 )

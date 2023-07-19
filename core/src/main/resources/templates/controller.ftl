@@ -27,7 +27,7 @@ public class ${className}Controller {
      */
     @ApiOperation(value = "添加")
     @PostMapping("/add")
-    public CustomizeResult<?> add(@Valid @RequestBody CommonEntity<${smallClassName}DO> param){
+    public CustomizeResult<?> add(@Valid @RequestBody CommonEntity<${className}DO> param){
         return CustomizeResult.success(${smallClassName}Service.add(param.getData()));
     }
 

@@ -11,6 +11,37 @@ import kotlin.reflect.full.valueParameters
 
 object DBUtil {
 
+    val dbType: HashMap<String,String> = hashMapOf()
+
+    init {
+        // 数值
+        dbType["tinyint"] = "Boolean"
+        dbType["smallint"] = "Short"
+        dbType["mediumint"] = "Integer"
+        dbType["int"] = "Integer"
+        dbType["integer"] = "Integer"
+        dbType["bigint"] = "Long"
+        dbType["float"] = "Float"
+        dbType["double"] = "Double"
+        // 日期
+        dbType["decimal"] = "BigDecimal"
+        dbType["date"] = "LocalDateTime"
+        dbType["time"] = "LocalDateTime"
+        dbType["datetime"] = "LocalDateTime"
+        dbType["timestamp"] = "LocalDateTime"
+        // 字符串
+        dbType["char"] = "String"
+        dbType["varchar"] = "String"
+        dbType["tinyblob"] = "String"
+        dbType["tinytext"] = "String"
+        dbType["blob"] = "String"
+        dbType["text"] = "String"
+        dbType["mediumblob"] = "String"
+        dbType["mediumtext"] = "String"
+        dbType["longblob"] = "String"
+        dbType["longtext"] = "String"
+    }
+
     fun getTableInfos(ip:String,port:String,username:String,password:String,dbName:String,tablePrefix:String): List<TableInfo> {
         val database = Database.connect(
             url = "jdbc:mysql://$ip:$port",
@@ -31,31 +62,30 @@ object DBUtil {
                     val bigHumpTableName = StrUtil.upperFirst(smallHumpTableName)
                     val smallClassName = StrUtil.lowerFirst(StrUtil.toCamelCase(tableName.substring(tablePrefix.length)))
                     val className = StrUtil.upperFirst(smallClassName)
-                    return@map TableInfo(tableName,tableComment,bigHumpTableName,smallHumpTableName,smallClassName,className)
-                }
-            }
-        }
-        // 获取表字段信息
-        tableInfos.forEach { tableInfo ->
-            database.useConnection { con ->
-                val sql = "select * from information_schema.columns where table_name = ? and table_schema = ?"
-                val columnInfos = con.prepareStatement(sql).use { pre ->
-                    pre.setString(1,tableInfo.tableName)
-                    pre.setString(2,dbName)
-                    pre.executeQuery().asIterable().map { res ->
-                        val columnInfoValueParams = ::ColumnInfo.valueParameters
-                        val argsMap = HashMap<KParameter,Any?>()
-                        for (tableInfoValueParam in columnInfoValueParams) {
-                            val value = res.getObject(StrUtil.toUnderlineCase(tableInfoValueParam.name))
-                            argsMap[tableInfoValueParam] = value
+                    // 获取表字段信息
+                    val columnSql = "select * from information_schema.columns where table_name = ? and table_schema = ?"
+                    val columnInfos = con.prepareStatement(columnSql).use { pre ->
+                        pre.setString(1,tableName)
+                        pre.setString(2,dbName)
+                        pre.executeQuery().asIterable().map { res ->
+                            val columnInfoValueParams = ::ColumnInfo.valueParameters
+                            val argsMap = HashMap<KParameter,Any?>()
+                            for (tableInfoValueParam in columnInfoValueParams) {
+                                val value = res.getObject(StrUtil.toUnderlineCase(tableInfoValueParam.name))
+                                argsMap[tableInfoValueParam] = value
+                            }
+                            ::ColumnInfo.callBy(argsMap)
                         }
-                        ::ColumnInfo.callBy(argsMap)
                     }
+                    return@map TableInfo(tableName,tableComment,bigHumpTableName,smallHumpTableName,smallClassName,className,columnInfos)
                 }
-                tableInfo.columnInfos = columnInfos
             }
         }
         return tableInfos
+    }
+
+    fun getType(type:String):String{
+        return dbType[type]?: "String"
     }
 
 }

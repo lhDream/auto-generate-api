@@ -57,6 +57,7 @@ class MainView: View("代码生成工具") {
      * 界面布局
      */
     override val root = anchorpane{
+
         form {
             fieldset("数据库连接配置:") {
                 field("数据库地址") { textfield(dbServer) }
@@ -90,6 +91,7 @@ class MainView: View("代码生成工具") {
                                 owner = primaryStage
                             )
                         }.getOrElse {
+                            it.printStackTrace()
                             alert(
                                 type = Alert.AlertType.ERROR,
                                 header = it.message.toString(),
