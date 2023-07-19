@@ -64,7 +64,7 @@ public class ${className}Controller {
     @ApiOperation(value = "查询列表")
     @PostMapping("/selAll")
     public CustomizeResult<?> selAll(@Valid @RequestBody CommonEntity<${className}DO> param){
-        return CustomizeResult.success(tbTaskTypeInfoService.list(new QueryWrapper<>(param.getData())));
+        return CustomizeResult.success(${smallClassName}Service.list(new QueryWrapper<>(param.getData())));
     }
 
 }

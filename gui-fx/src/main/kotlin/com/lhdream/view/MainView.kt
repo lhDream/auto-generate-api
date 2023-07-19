@@ -1,6 +1,6 @@
 package com.lhdream.view
 
-import com.lhdream.util.TestUtil
+import com.lhdream.controller.MainController
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import tornadofx.*
@@ -8,7 +8,11 @@ import tornadofx.*
 /**
  * 主界面
  */
-class MainView: View() {
+class MainView: View("代码生成工具") {
+    /**
+     * 业务实现
+     */
+    val mainController: MainController by inject()
     /**
      * 数据库ip地址
      */
@@ -53,7 +57,6 @@ class MainView: View() {
      * 界面布局
      */
     override val root = anchorpane{
-        title = "代码生成工具"
         form {
             fieldset("数据库连接配置:") {
                 field("数据库地址") { textfield(dbServer) }
@@ -70,26 +73,32 @@ class MainView: View() {
             buttonbar {
                 button("生成") {
                     action {
-                        println(this.text)
-                        TestUtil.test(
-                            ip = dbServer.value,
-                            port = dbPort.value,
-                            username = dbUsername.value,
-                            password = dbPassword.value,
-                            dbName = dbName.value,
-                            groupId = groupId.value,
-                            tablePrefix = tablePrefix.value,
-                            savePath = savePath.value
-                        )
-                        alert(
-                            type = Alert.AlertType.ERROR,
-                            header = "完成",
-                            owner = primaryStage)
+                        runCatching {
+                            mainController.enter(
+                                ip = dbServer.value,
+                                port = dbPort.value,
+                                username = dbUsername.value,
+                                password = dbPassword.value,
+                                dbName = dbName.value,
+                                groupId = groupId.value,
+                                tablePrefix = tablePrefix.value,
+                                savePath = savePath.value
+                            )
+                            alert(
+                                type = Alert.AlertType.ERROR,
+                                header = "成功",
+                                owner = primaryStage
+                            )
+                        }.getOrElse {
+                            alert(
+                                type = Alert.AlertType.ERROR,
+                                header = it.message.toString(),
+                                owner = primaryStage
+                            )
+                        }
                     }
                 }
             }
         }
-
     }
-
 }
