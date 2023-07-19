@@ -7,8 +7,8 @@ import tornadofx.*
 
 class IdeaStyleSheet: Stylesheet() {
 
-    private val pane by csselement()
-    private val anchorPane by csselement()
+    private val pane by csselement("pane")
+    private val anchorPane by csselement("anchorPane")
 
     init {
         val defaultBgColor = c("#3C3F41")

@@ -1,5 +1,6 @@
 package com.lhdream.util
 
+import cn.hutool.core.util.ReUtil
 import cn.hutool.core.util.StrUtil
 import com.lhdream.model.ColumnInfo
 import com.lhdream.model.TableInfo
@@ -60,7 +61,13 @@ object DBUtil {
                     val tableComment = it.getString(2)
                     val smallHumpTableName = StrUtil.toCamelCase(tableName)
                     val bigHumpTableName = StrUtil.upperFirst(smallHumpTableName)
-                    val smallClassName = StrUtil.lowerFirst(StrUtil.toCamelCase(tableName.substring(tablePrefix.length)))
+
+                    val smallClassName:String
+                    if(ReUtil.isMatch("$tablePrefix\\S*",tableName)){
+                        smallClassName = StrUtil.lowerFirst(StrUtil.toCamelCase(tableName.substring(tablePrefix.length)))
+                    }else{
+                        smallClassName = StrUtil.lowerFirst(StrUtil.toCamelCase(tableName))
+                    }
                     val className = StrUtil.upperFirst(smallClassName)
                     // 获取表字段信息
                     val columnSql = "select * from information_schema.columns where table_name = ? and table_schema = ?"

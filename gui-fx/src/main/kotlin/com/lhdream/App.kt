@@ -1,12 +1,14 @@
 package com.lhdream
 
-import com.lhdream.style.IdeaStyleSheet
 import com.lhdream.view.MainView
 import javafx.application.Application
 import tornadofx.*
+import java.util.Locale
 
-class Apps: App(MainView::class, IdeaStyleSheet::class)
+class Apps: App(MainView::class)
 
 fun main(){
+    FX.locale = Locale.getDefault()
+    println(Locale.getDefault())
     Application.launch(Apps::class.java)
 }

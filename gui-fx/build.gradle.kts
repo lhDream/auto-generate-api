@@ -7,7 +7,8 @@ group = "com.lhDream"
 version = "1.0.0"
 description = "gui-fx"
 
-val tornadofxVersion = "1.7.20"
+//val tornadofxVersion = "1.7.20"
+val tornadofxVersion = "2.0.0-SNAPSHOT"
 
 plugins {
     id("org.openjfx.javafxplugin").version("0.0.10")
@@ -23,7 +24,7 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17"
 }
 
 application {
