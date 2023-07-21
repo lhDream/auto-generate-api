@@ -35,13 +35,14 @@ allprojects {
     }
 
     repositories {
+        mavenLocal()
         maven(url = "https://maven.aliyun.com/repository/central")
         maven(url = "https://maven.aliyun.com/repository/public")
         maven(url = "https://maven.aliyun.com/repository/gradle-plugin")
         maven(url = "https://maven.aliyun.com/repository/apache-snapshots")
         maven(url = "https://maven.aliyun.com/repository/grails-core")
         maven(url = "https://jitpack.io")
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+//        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         mavenCentral()
     }
 

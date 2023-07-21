@@ -28,7 +28,6 @@ data class ClassInfo(
      * 类名
      */
     val className: String,
-
     /**
      * 属性列表
      */
@@ -36,8 +35,7 @@ data class ClassInfo(
 
 ) {
     /**
-     * 基础包名
+     * 包名
      */
     var basePackage: String = ""
-
 }

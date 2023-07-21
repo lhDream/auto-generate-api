@@ -63,35 +63,15 @@ class MainView: View("代码生成工具") {
         form {
             fieldset("数据库连接配置:") {
                 field("数据库地址") { textfield(dbServer).required() }
-                field("数据库端口") { textfield(dbPort) }
-                field("用户名") { textfield(dbUsername) }
-                field("密码") {
-                    passwordfield(dbPassword){
-                        validModel.validationContext.addValidator(this,this.textProperty()){
-                            if(it.isNullOrEmpty()){
-                                error("密码不能为空")
-                            }else{
-                                null
-                            }
-                        }
-                    }
-                }
+                field("数据库端口") { textfield(dbPort).required() }
+                field("用户名") { textfield(dbUsername).required() }
+                field("密码") { passwordfield(dbPassword).required() }
             }
             fieldset("代码生成配置") {
-                field("库名称") {
-                    textfield(dbName) {
-                        validModel.validationContext.addValidator(this,this.textProperty()){
-                            if(it.isNullOrEmpty()){
-                                error("库名称不能为空")
-                            }else{
-                                null
-                            }
-                        }
-                    }
-                }
-                field("groupId") { textfield(groupId) }
+                field("库名称") { textfield(dbName).required() }
+                field("groupId") { textfield(groupId).required() }
                 field("表名前缀") { textfield(tablePrefix) }
-                field("保存位置") { textfield(savePath) }
+                field("保存位置") { textfield(savePath).required() }
             }
             buttonbar {
                 button("生成") {

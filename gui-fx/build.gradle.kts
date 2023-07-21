@@ -16,7 +16,7 @@ plugins {
 
 dependencies {
     implementation(project(":core"))
-    implementation("no.tornado:tornadofx:$tornadofxVersion")
+    implementation("no.tornado:tornadofx2:$tornadofxVersion")
 }
 
 tasks.test {
