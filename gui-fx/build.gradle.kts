@@ -17,6 +17,7 @@ plugins {
 dependencies {
     implementation(project(":core"))
     implementation("no.tornado:tornadofx2:$tornadofxVersion")
+    implementation("org.controlsfx:controlsfx:9.0.0")
 }
 
 tasks.test {

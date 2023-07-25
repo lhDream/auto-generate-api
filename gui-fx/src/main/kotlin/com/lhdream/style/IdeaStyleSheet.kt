@@ -158,10 +158,28 @@ class IdeaStyleSheet: Stylesheet() {
                 }
             }
         }
+        scrollPane{
+            backgroundColor += defaultBgColor
+            viewport{
+                backgroundColor += defaultBgColor
+            }
+            scrollBar{
+                backgroundColor += Color.TRANSPARENT
+                thumb{
+                    backgroundColor += c("#4E4E4E")
+                    and(hover){
+                        backgroundColor += c("#565656")
+                    }
+                }
+                track{
+                    backgroundColor += Color.TRANSPARENT
+                }
+            }
+        }
         listView{
-            backgroundColor += c("#3C3F41")
+            backgroundColor += defaultBgColor
             listCell{
-                backgroundColor += c("#3C3F41")
+                backgroundColor += defaultBgColor
                 and(hover){
                     backgroundColor += c("#464A4D")
                 }
@@ -169,18 +187,18 @@ class IdeaStyleSheet: Stylesheet() {
                     backgroundColor += c("#4B6EAF")
                 }
                 and(empty){
-                    backgroundColor += c("#3C3F41")
+                    backgroundColor += defaultBgColor
                 }
             }
         }
         tableView{
             filler{
-                backgroundColor += c("#3C3F41")
+                backgroundColor += defaultBgColor
             }
             columnHeader{
-                backgroundColor += c("#3C3F41")
+                backgroundColor += defaultBgColor
             }
-            backgroundColor += c("#3C3F41")
+            backgroundColor += defaultBgColor
             tableRowCell{
                 backgroundInsets = multi(box(0.px))
                 backgroundColor += Color.TRANSPARENT
@@ -216,7 +234,7 @@ class IdeaStyleSheet: Stylesheet() {
                 alignment = Pos.CENTER
                 padding = box(0.px)
                 backgroundInsets = multi(box(0.px))
-                backgroundColor += c("#3C3F41")
+                backgroundColor += defaultBgColor
                 backgroundRadius = multi(box(0.px))
                 textFill = c("#fff")
                 and(hover){
@@ -232,7 +250,7 @@ class IdeaStyleSheet: Stylesheet() {
                 backgroundInsets = multi(box(0.px))
             }
             tabHeaderBackground{
-                backgroundColor += c("#3C3F41")
+                backgroundColor += defaultBgColor
                 padding = box(0.px)
                 backgroundInsets = multi(box(0.px))
                 prefHeight = 50.px
@@ -242,7 +260,7 @@ class IdeaStyleSheet: Stylesheet() {
             tabHeaderArea{
                 padding = box(0.px)
                 backgroundInsets = multi(box(0.px))
-                backgroundColor += c("#3C3F41")
+                backgroundColor += defaultBgColor
             }
             tabContentArea{
                 backgroundInsets = multi(box(0.px))

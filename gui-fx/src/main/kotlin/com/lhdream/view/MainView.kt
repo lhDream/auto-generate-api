@@ -1,8 +1,10 @@
 package com.lhdream.view
 
 import com.lhdream.controller.MainController
+import com.lhdream.util.DBUtil
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
+import javafx.scene.control.TabPane
 import tornadofx.*
 
 /**
@@ -59,48 +61,79 @@ class MainView: View("代码生成工具") {
     /**
      * 界面布局
      */
-    override val root = anchorpane{
-        form {
-            fieldset("数据库连接配置:") {
-                field("数据库地址") { textfield(dbServer).required() }
-                field("数据库端口") { textfield(dbPort).required() }
-                field("用户名") { textfield(dbUsername).required() }
-                field("密码") { passwordfield(dbPassword).required() }
+    override val root = tabpane{
+        tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
+        tab("首页"){
+
+            form {
+                fieldset("数据库连接配置:") {
+                    field("数据库地址") { textfield(dbServer).required() }
+                    field("数据库端口") { textfield(dbPort).required() }
+                    field("用户名") { textfield(dbUsername).required() }
+                    field("密码") { passwordfield(dbPassword).required() }
+                }
+                fieldset("代码生成配置") {
+                    field("库名称") { textfield(dbName).required() }
+                    field("groupId") { textfield(groupId).required() }
+                    field("表名前缀") { textfield(tablePrefix) }
+                    field("保存位置") { textfield(savePath).required() }
+                }
+                buttonbar {
+                    button("生成") {
+                        enableWhen(validModel.valid)
+                        action {
+                            validModel.commit{
+                                runCatching {
+                                    mainController.enter(
+                                        ip = dbServer.value,
+                                        port = dbPort.value,
+                                        username = dbUsername.value,
+                                        password = dbPassword.value,
+                                        dbName = dbName.value,
+                                        groupId = groupId.value,
+                                        tablePrefix = tablePrefix.value,
+                                        savePath = savePath.value
+                                    )
+                                    alert(
+                                        type = Alert.AlertType.ERROR,
+                                        header = "成功",
+                                        owner = primaryStage
+                                    )
+                                }.getOrElse {
+                                    it.printStackTrace()
+                                    alert(
+                                        type = Alert.AlertType.ERROR,
+                                        header = it.message.toString(),
+                                        owner = primaryStage
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            fieldset("代码生成配置") {
-                field("库名称") { textfield(dbName).required() }
-                field("groupId") { textfield(groupId).required() }
-                field("表名前缀") { textfield(tablePrefix) }
-                field("保存位置") { textfield(savePath).required() }
-            }
-            buttonbar {
-                button("生成") {
-                    enableWhen(validModel.valid)
-                    action {
-                        validModel.commit{
-                            runCatching {
-                                mainController.enter(
-                                    ip = dbServer.value,
-                                    port = dbPort.value,
-                                    username = dbUsername.value,
-                                    password = dbPassword.value,
-                                    dbName = dbName.value,
-                                    groupId = groupId.value,
-                                    tablePrefix = tablePrefix.value,
-                                    savePath = savePath.value
-                                )
-                                alert(
-                                    type = Alert.AlertType.ERROR,
-                                    header = "成功",
-                                    owner = primaryStage
-                                )
-                            }.getOrElse {
-                                it.printStackTrace()
-                                alert(
-                                    type = Alert.AlertType.ERROR,
-                                    header = it.message.toString(),
-                                    owner = primaryStage
-                                )
+        }
+
+        tab("设置"){
+            scrollpane {
+                prefWidth = 300.0
+                prefHeight = 400.0
+                form {
+                    val validModel = ViewModel()
+                    val tem = HashMap<String,SimpleStringProperty>()
+                    fieldset("数据库类型配置") {
+                        DBUtil.dbType.forEach { (k, v) ->
+                            val param = validModel.bind { SimpleStringProperty(v) }
+                            tem[k] = param
+                            field(k) { textfield(param).required()}
+                        }
+                    }
+                    buttonbar {
+                        button("保存"){
+                            validModel.commit{
+                                tem.forEach { (k, v) ->
+                                    DBUtil.dbType[k] = v.value
+                                }
                             }
                         }
                     }
