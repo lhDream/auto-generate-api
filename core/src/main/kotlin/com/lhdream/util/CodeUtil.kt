@@ -18,6 +18,7 @@ object CodeUtil {
         val templates = arrayOf("controller","dao","mapper","model","service","serviceImpl")
         val templatesSuffix = arrayOf("java","java","xml","java","java","java")
         val classFileName = arrayOf("Controller","Mapper","Mapper","DO","Service","ServiceImpl")
+        val path = arrayOf("controller","dao","mapper","model/entity","service","service/impl")
         classInfos.forEach { classInfo ->
             classInfo.basePackage = groupId
             for (i in templates.indices){
@@ -26,7 +27,7 @@ object CodeUtil {
                 val template: Template = engine.getTemplate("$templateName.ftl")
                 val result: String = template.render(JSONUtil.parseObj(classInfo))
                 val fileName = classInfo.className
-                val file = File(savePath  + "/" + classInfo.basePackage.replace(".", "/") + "/$templateName/$fileName${classFileName[i]}.${templatesSuffix[i]}")
+                val file = File(savePath  + "/" + classInfo.basePackage.replace(".", "/") + "/${path[i]}/$fileName${classFileName[i]}.${templatesSuffix[i]}")
                 if(!file.parentFile.exists()){
                     file.parentFile.mkdirs()
                 }

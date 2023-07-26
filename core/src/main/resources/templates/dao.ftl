@@ -1,8 +1,8 @@
-package ${basePackage}.mapper
+package ${basePackage}.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import ${basePackage}.model.${className}DO
+import ${basePackage}.model.entity.${className}DO;
 
 /**
  * ${tableComment}

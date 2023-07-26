@@ -1,6 +1,7 @@
 package com.lhdream.view
 
 import com.lhdream.controller.MainController
+import com.lhdream.model.TableInfo
 import com.lhdream.util.DBUtil
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
@@ -138,6 +139,12 @@ class MainView: View("代码生成工具") {
                         }
                     }
                 }
+            }
+        }
+        tab("模板配置"){
+            val array = observableListOf<TableInfo>()
+            tableview(array) {
+                readonlyColumn("",TableInfo::className)
             }
         }
     }

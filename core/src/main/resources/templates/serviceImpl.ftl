@@ -1,11 +1,11 @@
-package ${basePackage}.service.impl
+package ${basePackage}.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import ${basePackage}.service.${className}Service;
 import ${basePackage}.mapper.${className}Mapper;
-import ${basePackage}.model.${className}DO;
+import ${basePackage}.model.entity.${className}DO;
 
 /**
  * ${tableComment}

@@ -1,6 +1,6 @@
-package ${basePackage}.service
+package ${basePackage}.service;
 
-import ${basePackage}.model.${className}DO
+import ${basePackage}.model.entity.${className}DO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
