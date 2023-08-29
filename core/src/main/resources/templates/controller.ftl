@@ -34,7 +34,7 @@ public class ${className}Controller {
     @PostMapping("/add")
     @ApiOperation(value = "添加")
     public CustomizeResult<?> add(@Valid @RequestBody CommonEntity<${className}DO> param){
-        return CustomizeResult.success(${smallClassName}Service.save(param.getData()));
+        return CustomizeResult.success(${smallClassName}Service.add(param.getData()));
     }
 
     /**
@@ -43,7 +43,8 @@ public class ${className}Controller {
     @PostMapping("/del")
     @ApiOperation(value = "删除")
     public CustomizeResult<?> del(@Valid @RequestBody CommonEntity<IdDto> param){
-        return CustomizeResult.success(${smallClassName}Service.removeById(param.getData().getId()));
+        ${smallClassName}Service.del(param.getData().getId());
+        return CustomizeResult.success();
     }
 
     /**
@@ -52,7 +53,8 @@ public class ${className}Controller {
     @PostMapping("/upd")
     @ApiOperation(value = "修改")
     public CustomizeResult<?> upd(@Valid @RequestBody CommonEntity<${className}DO> param){
-        return CustomizeResult.success(${smallClassName}Service.updateById(param.getData()));
+        ${smallClassName}Service.upd(param.getData());
+        return CustomizeResult.success();
     }
 
     /**
@@ -61,7 +63,7 @@ public class ${className}Controller {
     @PostMapping("/selOne")
     @ApiOperation(value = "查询详情")
     public CustomizeResult<?> selOne(@Valid @RequestBody CommonEntity<IdDto> param){
-        return CustomizeResult.success(${smallClassName}Service.getById(param.getData().getId()));
+        return CustomizeResult.success(${smallClassName}Service.selOne(param.getData().getId()));
     }
 
     /**
@@ -70,7 +72,7 @@ public class ${className}Controller {
     @PostMapping("/selAll")
     @ApiOperation(value = "查询列表")
     public CustomizeResult<?> selAll(@Valid @RequestBody CommonEntity<${className}DO> param){
-        return CustomizeResult.success(${smallClassName}Service.list(new QueryWrapper<>(param.getData())));
+        return CustomizeResult.success(${smallClassName}Service.selAll(param.getData()));
     }
 
 }

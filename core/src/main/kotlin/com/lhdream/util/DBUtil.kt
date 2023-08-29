@@ -43,7 +43,7 @@ object DBUtil {
         dbType["longtext"] = "String"
     }
 
-    fun getTableInfos(ip:String,port:String,username:String,password:String,dbName:String,tablePrefix:String): List<TableInfo> {
+    fun getTableInfos(ip:String, port:String, username:String, password:String, dbName:String, tablePrefix:String): List<TableInfo> {
         val database = Database.connect(
             url = "jdbc:mysql://$ip:$port",
             driver = "com.mysql.cj.jdbc.Driver",
@@ -70,7 +70,7 @@ object DBUtil {
                     }
                     val className = StrUtil.upperFirst(smallClassName)
                     // 获取表字段信息
-                    val columnSql = "select * from information_schema.columns where table_name = ? and table_schema = ?"
+                    val columnSql = "select * from information_schema.columns where table_name = ? and table_schema = ? order by ordinal_position"
                     val columnInfos = con.prepareStatement(columnSql).use { pre ->
                         pre.setString(1,tableName)
                         pre.setString(2,dbName)

@@ -16,6 +16,7 @@ dependencies {
     implementation("org.freemarker:freemarker:$freemarkerVersion")
     implementation("cn.hutool:hutool-all:$hutoolVersion")
     implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
+    implementation("com.github.jsqlparser:jsqlparser:4.6")
 }
 
 tasks.test {

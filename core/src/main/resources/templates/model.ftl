@@ -1,8 +1,6 @@
 package ${basePackage}.model.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 import io.swagger.annotations.ApiModel;
@@ -24,13 +22,22 @@ public class ${className}DO {
     /**
      * ${fieldInfo.columnComment}
      */
-    @ApiModelProperty(value = "${fieldInfo.columnComment}")
         <#if fieldInfo.field == "id">
     @TableId
         </#if>
+        <#if fieldInfo.field == "isDeleted">
+    @TableLogic
+        </#if>
+    @ApiModelProperty(value = "${fieldInfo.columnComment}")
+        <#if fieldInfo.field == "createTime" || fieldInfo.field = "creator">
+    @TableField(fill = FieldFill.INSERT)
+        </#if>
+        <#if fieldInfo.field == "updateTime" || fieldInfo.field = "updater">
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+        </#if>
         <#if fieldInfo.fieldType == "LocalDateTime">
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         </#if>
     private ${fieldInfo.fieldType} ${fieldInfo.field};
     </#list>
