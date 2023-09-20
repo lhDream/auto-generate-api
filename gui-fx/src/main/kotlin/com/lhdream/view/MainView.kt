@@ -1,11 +1,13 @@
 package com.lhdream.view
 
+import com.lhdream.components.fontIcon
 import com.lhdream.controller.MainController
 import com.lhdream.model.TableInfo
 import com.lhdream.util.DBUtil
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import javafx.scene.control.TabPane
+import javafx.scene.paint.Color
 import tornadofx.*
 
 /**
@@ -37,12 +39,12 @@ class MainView: View("代码生成工具") {
     /**
      * 数据库连接密码
      */
-    val dbPassword = validModel.bind { SimpleStringProperty() }
+    val dbPassword = validModel.bind { SimpleStringProperty("aodun@2012") }
 
     /**
      * 数据库名称
      */
-    val dbName = validModel.bind { SimpleStringProperty() }
+    val dbName = validModel.bind { SimpleStringProperty("test") }
 
     /**
      * 基础包名
@@ -65,7 +67,7 @@ class MainView: View("代码生成工具") {
     override val root = tabpane{
         tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
         tab("首页"){
-
+            graphic = fontIcon("anto-home", iconColor = Color.WHITE)
             form {
                 fieldset("数据库连接配置:") {
                     field("数据库地址") { textfield(dbServer).required() }
@@ -81,6 +83,7 @@ class MainView: View("代码生成工具") {
                 }
                 buttonbar {
                     button("生成") {
+                        graphic = fontIcon("anto-save", iconColor = Color.WHITE)
                         enableWhen(validModel.valid)
                         action {
                             validModel.commit{
@@ -116,6 +119,7 @@ class MainView: View("代码生成工具") {
         }
 
         tab("设置"){
+            graphic = fontIcon("anto-setting", iconColor = Color.WHITE)
             scrollpane {
                 prefWidth = 300.0
                 prefHeight = 400.0
@@ -142,6 +146,7 @@ class MainView: View("代码生成工具") {
             }
         }
         tab("模板配置"){
+            graphic = fontIcon("anto-tool", iconColor = Color.WHITE)
             val array = observableListOf<TableInfo>()
             tableview(array) {
                 readonlyColumn("",TableInfo::className)

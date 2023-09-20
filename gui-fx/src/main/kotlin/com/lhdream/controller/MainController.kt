@@ -32,6 +32,7 @@ class MainController: Controller() {
                     ordinalPosition = columnInfo.ordinalPosition,
                     columnDefault = columnInfo.columnDefault,
                     isNullable = columnInfo.isNullable,
+                    required = columnInfo.isNullable == "NO",
                     dataType = columnInfo.dataType,
                     columnComment = columnInfo.columnComment
                 )

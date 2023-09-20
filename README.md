@@ -38,7 +38,7 @@
      */
     var basePackage: String
 ```
-### 属性字段
+### 属性字段(FieldInfo)
 ```kotlin
     val tableCatalog: Any?
     /**
@@ -65,6 +65,10 @@
      * 是否可为null
      */
     val isNullable: Any?
+    /**
+     * 是否必填
+     */
+    val required: Boolean
     /**
      * 数据类型
      */

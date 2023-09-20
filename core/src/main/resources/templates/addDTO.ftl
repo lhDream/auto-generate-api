@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -14,8 +15,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @ApiModel
-@TableName("${tableName}")
-public class ${className}DO {
+public class ${className}AddDTO {
 
 <#if fieldInfos??>
     <#list fieldInfos as fieldInfo>
@@ -23,21 +23,18 @@ public class ${className}DO {
      * ${fieldInfo.columnComment}
      */
         <#if fieldInfo.field == "id">
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId
         </#if>
         <#if fieldInfo.field == "isDeleted">
     @TableLogic
         </#if>
     @ApiModelProperty(value = "${fieldInfo.columnComment}")
-        <#if fieldInfo.field == "createTime" || fieldInfo.field = "creator">
-    @TableField(fill = FieldFill.INSERT)
-        </#if>
-        <#if fieldInfo.field == "updateTime" || fieldInfo.field = "updater">
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-        </#if>
         <#if fieldInfo.fieldType == "LocalDateTime">
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        </#if>
+        <#if fieldInfo.required>
+    @NotNull(message = "${fieldInfo.field}不能为null")
         </#if>
     private ${fieldInfo.fieldType} ${fieldInfo.field};
     </#list>

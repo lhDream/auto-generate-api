@@ -30,7 +30,11 @@ data class FieldInfo (
     /**
      * 是否可为null
      */
-    val isNullable: Any?,
+    val isNullable: String,
+    /**
+     * 是否必填
+     */
+    val required: Boolean,
     /**
      * 数据类型
      */
@@ -44,4 +48,9 @@ data class FieldInfo (
      * 属性类型
      */
     val fieldType: String = DBUtil.getType(this.dataType)
+
+    fun getIsNullable(): String {
+        return this.isNullable
+    }
+
 }

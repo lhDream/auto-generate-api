@@ -18,6 +18,10 @@ dependencies {
     implementation(project(":core"))
     implementation("no.tornado:tornadofx2:$tornadofxVersion")
     implementation("org.controlsfx:controlsfx:9.0.0")
+
+    implementation(platform("org.kordamp.ikonli:ikonli-bom:12.3.1"))
+    implementation("org.kordamp.ikonli:ikonli-javafx")
+    implementation("org.kordamp.ikonli:ikonli-antdesignicons-pack")
 }
 
 tasks.test {

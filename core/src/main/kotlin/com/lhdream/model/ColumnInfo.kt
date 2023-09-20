@@ -21,7 +21,7 @@ data class ColumnInfo(
     /**
      * 是否可为null
      */
-    val isNullable: Any?,
+    val isNullable: String,
     /**
      * 数据类型
      */

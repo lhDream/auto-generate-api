@@ -49,6 +49,8 @@ allprojects {
     dependencies{
         testImplementation(kotlin("test"))
         implementation("cn.hutool:hutool-all:$hutoolVersion")
+        implementation("com.alibaba.fastjson2:fastjson2:2.0.39")
+
 
     }
 }
