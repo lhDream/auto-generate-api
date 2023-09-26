@@ -65,6 +65,8 @@ class MainView: View("代码生成工具") {
      * 界面布局
      */
     override val root = tabpane{
+        prefWidth = 350.0
+        prefHeight = 450.0
         tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
         tab("首页"){
             graphic = fontIcon("anto-home", iconColor = Color.WHITE)
@@ -130,8 +132,6 @@ class MainView: View("代码生成工具") {
         tab("设置"){
             graphic = fontIcon("anto-setting", iconColor = Color.WHITE)
             scrollpane {
-                prefWidth = 300.0
-                prefHeight = 400.0
                 form {
                     val validModel = ViewModel()
                     val tem = HashMap<String,SimpleStringProperty>()
