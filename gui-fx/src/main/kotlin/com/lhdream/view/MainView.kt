@@ -24,42 +24,42 @@ class MainView: View("代码生成工具") {
     /**
      * 数据库ip地址
      */
-    val dbServer = validModel.bind { SimpleStringProperty("localhost") }
+    val dbServer = validModel.bind { SimpleStringProperty((config["dbServer"]?: "localhost") as String?) }
 
     /**
      * 数据库连接端口
      */
-    val dbPort = validModel.bind { SimpleStringProperty("3306") }
+    val dbPort = validModel.bind { SimpleStringProperty((config["dbPort"]?: "3306") as String?) }
 
     /**
      * 数据库连接 用户名
      */
-    val dbUsername = validModel.bind { SimpleStringProperty("root") }
+    val dbUsername = validModel.bind { SimpleStringProperty((config["dbUsername"]?: "root") as String?) }
 
     /**
      * 数据库连接密码
      */
-    val dbPassword = validModel.bind { SimpleStringProperty("aodun@2012") }
+    val dbPassword = validModel.bind { SimpleStringProperty((config["dbPassword"]?: "") as String?) }
 
     /**
      * 数据库名称
      */
-    val dbName = validModel.bind { SimpleStringProperty("test") }
+    val dbName = validModel.bind { SimpleStringProperty((config["dbName"]?: "test") as String?) }
 
     /**
      * 基础包名
      */
-    val groupId = validModel.bind { SimpleStringProperty("com.example") }
+    val groupId = validModel.bind { SimpleStringProperty((config["groupId"]?: "com.example") as String?) }
 
     /**
      * 表名前缀
      */
-    val tablePrefix = validModel.bind { SimpleStringProperty("tb_") }
+    val tablePrefix = validModel.bind { SimpleStringProperty((config["tablePrefix"]?: "tb_") as String?) }
 
     /**
      * 保存位置
      */
-    val savePath = validModel.bind { SimpleStringProperty("d://testFile") }
+    val savePath = validModel.bind { SimpleStringProperty((config["savePath"]?: "d://testFile") as String?) }
 
     /**
      * 界面布局
@@ -98,6 +98,15 @@ class MainView: View("代码生成工具") {
                                         tablePrefix = tablePrefix.value,
                                         savePath = savePath.value
                                     )
+                                    config["dbServer"] = dbServer.value
+                                    config["dbPort"] = dbPort.value
+                                    config["dbUsername"] = dbUsername.value
+                                    config["dbPassword"] = dbPassword.value
+                                    config["dbName"] = dbName.value
+                                    config["groupId"] = groupId.value
+                                    config["tablePrefix"] = tablePrefix.value
+                                    config["savePath"] = savePath.value
+                                    config.save()
                                     alert(
                                         type = Alert.AlertType.ERROR,
                                         header = "成功",
