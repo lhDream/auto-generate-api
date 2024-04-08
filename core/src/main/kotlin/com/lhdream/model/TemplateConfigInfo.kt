@@ -9,5 +9,5 @@ data class TemplateConfigInfo(
     /**
      * 模板保存路径
      */
-    val templatePath: String = "templates"
+    val templatePath: String = "templates/v3"
 }
