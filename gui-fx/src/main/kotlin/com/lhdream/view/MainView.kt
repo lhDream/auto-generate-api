@@ -135,6 +135,9 @@ class MainView: View("代码生成工具") {
                 form {
                     val validModel = ViewModel()
                     val tem = HashMap<String,SimpleStringProperty>()
+                    fieldset("脚本格式") {
+
+                    }
                     fieldset("数据库类型配置") {
                         DBUtil.dbType.forEach { (k, v) ->
                             val param = validModel.bind { SimpleStringProperty(v) }
@@ -142,6 +145,7 @@ class MainView: View("代码生成工具") {
                             field(k) { textfield(param).required()}
                         }
                     }
+
                     buttonbar {
                         button("保存"){
                             validModel.commit{

@@ -13,7 +13,7 @@ import java.io.File
 object CodeUtil {
 
     fun createCode(classInfos: List<ClassInfo>,groupId:String,savePath:String){
-        val templateConfig = TemplateConfig("templates/v3", TemplateConfig.ResourceMode.CLASSPATH)
+        val templateConfig = TemplateConfig("templates/v3/ftl", TemplateConfig.ResourceMode.CLASSPATH)
         val templates = arrayOf("controller","dao","mapper","model","service","serviceImpl","addDTO")
         val templatesSuffix = arrayOf("java","java","xml","java","java","java","java")
         val classFileName = arrayOf("Controller","Mapper","Mapper","DO","Service","ServiceImpl","DTO")
@@ -34,6 +34,14 @@ object CodeUtil {
                 file.writeText(result)
             }
         }
+    }
+
+}
+
+object KotlinCodeUtil{
+
+    fun createCode(classInfos: List<ClassInfo>,groupId:String,savePath:String){
+
     }
 
 }

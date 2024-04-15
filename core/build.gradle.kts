@@ -17,6 +17,7 @@ dependencies {
     implementation("cn.hutool:hutool-all:$hutoolVersion")
     implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     implementation("com.github.jsqlparser:jsqlparser:4.6")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-jsr223:1.8.22")
 }
 
 tasks.test {
