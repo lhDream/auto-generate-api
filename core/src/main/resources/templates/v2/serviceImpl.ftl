@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import ${basePackage}.service.${className}Service;
-import ${basePackage}.mapper.${className}Mapper;
+import ${basePackage}.mapper.${className}templates.v3.kts.Mapper;
 import ${basePackage}.model.entity.${className}DO;
 
 import java.util.List;
@@ -19,14 +19,14 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
     /**
      * ${tableComment}
      */
-    private final ${className}Mapper ${smallClassName}Mapper;
+    private final ${className}templates.v3.kts.Mapper ${smallClassName}templates.v3.kts.Mapper;
 
     /**
      * 添加
      */
     @Override
     public String add(${className}DO param){
-        ${smallClassName}Mapper.insert(param);
+        ${smallClassName}templates.v3.kts.Mapper.insert(param);
         return param.getId();
     }
 
@@ -35,7 +35,7 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
      */
     @Override
     public void del(String id){
-        ${smallClassName}Mapper.deleteById(id);
+        ${smallClassName}templates.v3.kts.Mapper.deleteById(id);
     }
 
     /**
@@ -43,7 +43,7 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
      */
     @Override
     public void upd(${className}DO param){
-        ${smallClassName}Mapper.updateById(param);
+        ${smallClassName}templates.v3.kts.Mapper.updateById(param);
     }
 
     /**
@@ -51,7 +51,7 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
      */
     @Override
     public ${className}DO selOne(String id){
-        return ${smallClassName}Mapper.selectById(id);
+        return ${smallClassName}templates.v3.kts.Mapper.selectById(id);
     }
 
     /**
@@ -59,7 +59,7 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
      */
     @Override
     public List<${className}DO> selAll(${className}DO param){
-        return ${smallClassName}Mapper.selectList(new QueryWrapper<>(param));
+        return ${smallClassName}templates.v3.kts.Mapper.selectList(new QueryWrapper<>(param));
     }
 
 }

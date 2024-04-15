@@ -6,6 +6,7 @@ import com.lhdream.model.ClassInfo
 import com.lhdream.model.FieldInfo
 import com.lhdream.util.CodeUtil
 import com.lhdream.util.DBUtil
+import com.lhdream.util.KotlinCodeUtil
 import tornadofx.*
 import java.util.stream.Collectors
 import kotlin.streams.toList
@@ -47,7 +48,8 @@ class MainController: Controller() {
                 fieldInfos = fieldInfos
             )
         }.collect(Collectors.toList())
-        CodeUtil.createCode(classInfos,groupId, savePath)
+//        CodeUtil.createCode(classInfos,groupId, savePath)
+        KotlinCodeUtil.createCode(classInfos, groupId, savePath)
     }
 
 }

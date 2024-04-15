@@ -1,8 +1,10 @@
 package com.lhdream.util
 
+import cn.hutool.core.io.FileUtil
 import cn.hutool.extra.template.Template
 import cn.hutool.extra.template.TemplateConfig
 import cn.hutool.extra.template.TemplateUtil
+import cn.hutool.script.ScriptUtil
 import com.alibaba.fastjson2.JSONObject
 import com.lhdream.model.ClassInfo
 import java.io.File
@@ -16,7 +18,7 @@ object CodeUtil {
         val templateConfig = TemplateConfig("templates/v3/ftl", TemplateConfig.ResourceMode.CLASSPATH)
         val templates = arrayOf("controller","dao","mapper","model","service","serviceImpl","addDTO")
         val templatesSuffix = arrayOf("java","java","xml","java","java","java","java")
-        val classFileName = arrayOf("Controller","Mapper","Mapper","DO","Service","ServiceImpl","DTO")
+        val classFileName = arrayOf("Controller","templates.v3.kts.Mapper","templates.v3.kts.Mapper","DO","Service","ServiceImpl","DTO")
         val path = arrayOf("controller","dao","mapper","model/entity","service","service/impl","model/dto")
         classInfos.forEach { classInfo ->
             classInfo.basePackage = groupId
@@ -41,7 +43,30 @@ object CodeUtil {
 object KotlinCodeUtil{
 
     fun createCode(classInfos: List<ClassInfo>,groupId:String,savePath:String){
-
+        val ktsBasePath = FileUtil.getAbsolutePath("templates/v3/kts")
+        val templates = arrayOf("controller","dao","mapper","model","service","serviceImpl","addDTO")
+        val templatesSuffix = arrayOf("java","java","xml","java","java","java","java")
+        val classFileName = arrayOf("Controller","templates.v3.kts.Mapper","templates.v3.kts.Mapper","DO","Service","ServiceImpl","DTO")
+        val path = arrayOf("controller","dao","mapper","model/entity","service","service/impl","model/dto")
+        classInfos.forEach { classInfo ->
+            classInfo.basePackage = groupId
+            for (i in templates.indices){
+                val templateName = templates[i]
+                val engine = ScriptUtil.getScript("kts")
+                engine.put("data",classInfo)
+                val result = engine.eval(File("$ktsBasePath/$templateName.kts").reader())
+                if(result != null){
+                    val fileName = classInfo.className
+                    val file = File(savePath  + "/" + classInfo.basePackage.replace(".", "/") + "/${path[i]}/$fileName${classFileName[i]}.${templatesSuffix[i]}")
+                    if(!file.parentFile.exists()){
+                        file.parentFile.mkdirs()
+                    }
+                    file.writeText(result.toString())
+                }else{
+                    println("模板生成内容为null")
+                }
+            }
+        }
     }
 
 }
