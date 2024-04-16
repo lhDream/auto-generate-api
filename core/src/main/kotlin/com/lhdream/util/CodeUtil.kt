@@ -62,8 +62,6 @@ object KotlinCodeUtil{
                         file.parentFile.mkdirs()
                     }
                     file.writeText(result.toString())
-                }else{
-                    println("模板生成内容为null")
                 }
             }
         }
