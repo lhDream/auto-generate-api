@@ -1,5 +1,5 @@
 # auto-generate-api
-自动生成代码工具
+自动生成代码工具,支持 `freeMarker` 和 `kotlin` 作为模板语言
 
 ## 功能规划
 
