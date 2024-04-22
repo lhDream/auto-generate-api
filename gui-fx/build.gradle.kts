@@ -7,8 +7,8 @@ group = "com.lhDream"
 version = "1.0.0"
 description = "gui-fx"
 
-//val tornadofxVersion = "1.7.20"
-val tornadofxVersion = "2.0.0-SNAPSHOT"
+val tornadofxVersion = "1.7.20"
+//val tornadofxVersion = "2.0.0-SNAPSHOT"
 
 plugins {
     id("org.openjfx.javafxplugin").version("0.0.10")
@@ -16,7 +16,7 @@ plugins {
 
 dependencies {
     implementation(project(":core"))
-    implementation("no.tornado:tornadofx2:$tornadofxVersion")
+    implementation("no.tornado:tornadofx:$tornadofxVersion")
     implementation("org.controlsfx:controlsfx:9.0.0")
 
     implementation(platform("org.kordamp.ikonli:ikonli-bom:12.3.1"))

@@ -9,6 +9,7 @@ import javafx.scene.control.Alert
 import javafx.scene.control.TabPane
 import javafx.scene.paint.Color
 import tornadofx.*
+import java.io.File
 
 /**
  * 主界面
@@ -84,6 +85,11 @@ class MainView: View("代码生成工具") {
                     field("保存位置") { textfield(savePath).required() }
                 }
                 buttonbar {
+                    button("打开目录"){
+                        action {
+                            Runtime.getRuntime().exec("explorer ${File(savePath.value).absolutePath}")
+                        }
+                    }
                     button("生成") {
                         graphic = fontIcon("anto-save", iconColor = Color.WHITE)
                         enableWhen(validModel.valid)
