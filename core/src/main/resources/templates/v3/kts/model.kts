@@ -10,7 +10,7 @@ val tableName = classInfo.tableName
 val field = StringBuilder()
 
 classInfo.fieldInfos.forEach {
-    field.appendLine("    /*")
+    field.appendLine("    /**")
         .appendLine("     * ${it.columnComment}")
         .appendLine("     */")
     if (it.field == "id"){

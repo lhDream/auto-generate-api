@@ -5,7 +5,7 @@ val classInfo = bindings["data"] as ClassInfo
 val field = StringBuilder()
 
 classInfo.fieldInfos.forEach {
-    field.appendLine("    /*")
+    field.appendLine("    /**")
         .appendLine("     * ${it.columnComment}")
         .appendLine("     */")
     if (it.field == "id"){
