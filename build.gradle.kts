@@ -55,16 +55,6 @@ allprojects {
     }
 }
 
-//dependencies {
-//    testImplementation(kotlin("test"))
-//    implementation("org.ktorm:ktorm-core:$ktormVersion")
-//    implementation("org.ktorm:ktorm-support-mysql:$ktormVersion")
-//    implementation("com.mysql:mysql-connector-j:$mysqlVersion")
-//    implementation("org.freemarker:freemarker:$freemarkerVersion")
-//    implementation("cn.hutool:hutool-all:$hutoolVersion")
-//    implementation("no.tornado:tornadofx:$tornadofxVersion")
-//}
-
 tasks.test {
     useJUnitPlatform()
 }

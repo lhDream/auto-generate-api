@@ -3,16 +3,16 @@ import io.github.fvarrui.javapackager.model.ValueType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import io.github.fvarrui.javapackager.gradle.PackageTask
 
+plugins {
+    id("org.openjfx.javafxplugin").version("0.0.10")
+}
+
 group = "com.lhDream"
 version = "1.0.0"
 description = "gui-fx"
 
 val tornadofxVersion = "1.7.20"
 //val tornadofxVersion = "2.0.0-SNAPSHOT"
-
-plugins {
-    id("org.openjfx.javafxplugin").version("0.0.10")
-}
 
 dependencies {
     implementation(project(":core"))

@@ -9,15 +9,15 @@ val tableComment = classInfo.tableComment
 """
 package ${basePackage}.mapper;
 
-import org.apache.ibatis.annotations.templates.v3.kts.Mapper;
+import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import ${basePackage}.model.entity.${className}DO;
 
 /**
  * ${tableComment}
  */
-@templates.v3.kts.Mapper
-public interface ${className}templates.v3.kts.Mapper extends BaseMapper<${className}DO>{
+@Mapper
+public interface ${className}Mapper extends BaseMapper<${className}DO>{
 
 }
 """.trimIndent()

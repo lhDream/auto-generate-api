@@ -6,10 +6,10 @@ import com.lhdream.model.TableInfo
 import com.lhdream.util.DBUtil
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
-import javafx.scene.control.TabPane
 import javafx.scene.paint.Color
 import tornadofx.*
 import java.io.File
+import javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE
 
 /**
  * 主界面
@@ -68,7 +68,7 @@ class MainView: View("代码生成工具") {
     override val root = tabpane{
         prefWidth = 350.0
         prefHeight = 450.0
-        tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
+        tabClosingPolicy = UNAVAILABLE
         tab("首页"){
             graphic = fontIcon("anto-home", iconColor = Color.WHITE)
             form {

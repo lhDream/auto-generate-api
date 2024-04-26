@@ -15,10 +15,11 @@ import java.io.File
 object CodeUtil {
 
     fun createCode(classInfos: List<ClassInfo>,groupId:String,savePath:String){
-        val templateConfig = TemplateConfig("templates/v3/ftl", TemplateConfig.ResourceMode.CLASSPATH)
+        val version = "v2"
+        val templateConfig = TemplateConfig("templates/$version", TemplateConfig.ResourceMode.CLASSPATH)
         val templates = arrayOf("controller","dao","mapper","model","service","serviceImpl","addDTO")
         val templatesSuffix = arrayOf("java","java","xml","java","java","java","java")
-        val classFileName = arrayOf("Controller","templates.v3.kts.Mapper","templates.v3.kts.Mapper","DO","Service","ServiceImpl","DTO")
+        val classFileName = arrayOf("Controller","Mapper","Mapper","DO","Service","ServiceImpl","DTO")
         val path = arrayOf("controller","dao","mapper","model/entity","service","service/impl","model/dto")
         classInfos.forEach { classInfo ->
             classInfo.basePackage = groupId
@@ -46,7 +47,7 @@ object KotlinCodeUtil{
         val ktsBasePath = FileUtil.getAbsolutePath("templates/v3/kts")
         val templates = arrayOf("controller","dao","mapper","model","service","serviceImpl","addDTO")
         val templatesSuffix = arrayOf("java","java","xml","java","java","java","java")
-        val classFileName = arrayOf("Controller","templates.v3.kts.Mapper","templates.v3.kts.Mapper","DO","Service","ServiceImpl","DTO")
+        val classFileName = arrayOf("Controller","Mapper","Mapper","DO","Service","ServiceImpl","DTO")
         val path = arrayOf("controller","dao","mapper","model/entity","service","service/impl","model/dto")
         classInfos.forEach { classInfo ->
             classInfo.basePackage = groupId
