@@ -5,6 +5,7 @@ val classInfo = bindings["data"] as ClassInfo
 """
 package ${classInfo.basePackage}.controller;
 
+import com.aodun.caution.model.dto.IdDto;
 import com.aodun.common.commonEntityMg.entity.CommonEntity;
 import com.aodun.common.resultMg.CustomizeResult;
 import ${classInfo.basePackage}.service.${classInfo.className}Service;
@@ -17,8 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * ${classInfo.tableComment}
