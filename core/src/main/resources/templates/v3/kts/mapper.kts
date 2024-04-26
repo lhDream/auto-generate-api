@@ -34,7 +34,7 @@ ${resultMap.toString()}
             ${sql}
         </sql>
         
-        <insert id = "selOne" resultMap="baseMap" parameterType="java.lang.String">
+        <insert id = "selOne" parameterType="java.lang.String">
             select <include refid = "allColumn"/> from ${classInfo.tableName} where id = #{id} and is_deleted = 0
         </insert>
         
