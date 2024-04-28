@@ -9,7 +9,7 @@ val selAll = StringBuilder()
 
 classInfo.fieldInfos.forEach {
     resultMap.append("                <result column=\"${it.columnName}\" property = \"${it.field}\"/> \n")
-    sql.append(it.field).append(",")
+    sql.append("`").append(it.columnName).append("`,")
     selAll.append("                <if test = \"${it.field} != null\">\n")
     selAll.append("                    and tb.${it.columnName} = #{${it.field}}\n")
     selAll.append("                </if>\n")
