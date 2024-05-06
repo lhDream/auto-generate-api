@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import com.aodun.lh.model.query.BasePageQuery;
 
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +36,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Schema
+@EqualsAndHashCode(callSuper = true)
 public class ${classInfo.className}Query extends BasePageQuery{
 
 $field
