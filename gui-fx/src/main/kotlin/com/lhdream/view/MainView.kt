@@ -95,38 +95,44 @@ class MainView: View("代码生成工具") {
                         enableWhen(validModel.valid)
                         action {
                             validModel.commit{
-                                runCatching {
-                                    mainController.enter(
-                                        ip = dbServer.value,
-                                        port = dbPort.value,
-                                        username = dbUsername.value,
-                                        password = dbPassword.value,
-                                        dbName = dbName.value,
-                                        groupId = groupId.value,
-                                        tablePrefix = tablePrefix.value,
-                                        savePath = savePath.value
-                                    )
-                                    config["dbServer"] = dbServer.value
-                                    config["dbPort"] = dbPort.value
-                                    config["dbUsername"] = dbUsername.value
-                                    config["dbPassword"] = dbPassword.value
-                                    config["dbName"] = dbName.value
-                                    config["groupId"] = groupId.value
-                                    config["tablePrefix"] = tablePrefix.value
-                                    config["savePath"] = savePath.value
-                                    config.save()
-                                    alert(
-                                        type = Alert.AlertType.ERROR,
-                                        header = "成功",
-                                        owner = primaryStage
-                                    )
-                                }.getOrElse {
-                                    it.printStackTrace()
-                                    alert(
-                                        type = Alert.AlertType.ERROR,
-                                        header = it.message.toString(),
-                                        owner = primaryStage
-                                    )
+                                runAsync {
+                                    runCatching {
+                                        mainController.enter(
+                                            ip = dbServer.value,
+                                            port = dbPort.value,
+                                            username = dbUsername.value,
+                                            password = dbPassword.value,
+                                            dbName = dbName.value,
+                                            groupId = groupId.value,
+                                            tablePrefix = tablePrefix.value,
+                                            savePath = savePath.value
+                                        )
+                                        config["dbServer"] = dbServer.value
+                                        config["dbPort"] = dbPort.value
+                                        config["dbUsername"] = dbUsername.value
+                                        config["dbPassword"] = dbPassword.value
+                                        config["dbName"] = dbName.value
+                                        config["groupId"] = groupId.value
+                                        config["tablePrefix"] = tablePrefix.value
+                                        config["savePath"] = savePath.value
+                                        config.save()
+                                        ui{
+                                            alert(
+                                                type = Alert.AlertType.ERROR,
+                                                header = "成功",
+                                                owner = primaryStage
+                                            )
+                                        }
+                                    }.getOrElse { e ->
+                                        e.printStackTrace()
+                                        ui{
+                                            alert(
+                                                type = Alert.AlertType.ERROR,
+                                                header = e.message.toString(),
+                                                owner = primaryStage
+                                            )
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -10,6 +10,8 @@ val tableComment = classInfo.tableComment
 package ${basePackage}.service;
 
 import ${basePackage}.model.entity.${className}DO;
+import ${classInfo.basePackage}.model.entity.dto.${classInfo.className}ResDTO;
+import ${classInfo.basePackage}.model.entity.query.${classInfo.className}Query;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -37,11 +39,11 @@ public interface ${className}Service extends IService<${className}DO>{
     /**
      * 查询详情
      */
-    ${className}DO selOne(String id);
+    ${className}ResDTO selOne(String id);
 
     /**
      * 查询列表
      */
-    List<${className}DO> selAll(${className}DO param);
+    List<${className}ResDTO> selAll(${className}Query param);
 }
 """.trimIndent()

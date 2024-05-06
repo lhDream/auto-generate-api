@@ -5,15 +5,19 @@ val classInfo = bindings["data"] as ClassInfo
 """
 package ${classInfo.basePackage}.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.aodun.caution.model.dto.IdDto;
 import com.aodun.common.commonEntityMg.entity.CommonEntity;
-import com.aodun.common.resultMg.CustomizeResult;
+import com.aodun.lh.factory.ResultFactory;
 import ${classInfo.basePackage}.service.${classInfo.className}Service;
 import ${classInfo.basePackage}.model.entity.${classInfo.className}DO;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import ${classInfo.basePackage}.model.entity.dto.${classInfo.className}AddDTO;
+import ${classInfo.basePackage}.model.entity.dto.${classInfo.className}UpdDTO;
+import ${classInfo.basePackage}.model.entity.dto.${classInfo.className}ResDTO;
+import ${classInfo.basePackage}.model.entity.query.${classInfo.className}Query;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +29,7 @@ import jakarta.validation.Valid;
  */
 @RestController
 @RequiredArgsConstructor
-@Schema(name = "${classInfo.tableComment}", description = "${classInfo.tableComment}")
+@Tag(name = "${classInfo.tableComment}", description = "${classInfo.tableComment}")
 @RequestMapping("/${classInfo.smallClassName}")
 public class ${classInfo.className}Controller {
     /**
@@ -38,8 +42,9 @@ public class ${classInfo.className}Controller {
      */
     @PostMapping("/add")
     @Operation(summary = "添加")
-    public CustomizeResult<?> add(@Valid @RequestBody CommonEntity<${classInfo.className}DO> param){
-        return CustomizeResult.success(${classInfo.smallClassName}Service.add(param.getData()));
+    public CustomizeResult<?> add(@Valid @RequestBody CommonEntity<${classInfo.className}AddDTO> param){
+        var data = BeanUtil.copyProperties(param.getData(),${classInfo.className}DO.class);
+        return ResultFactory.success(${classInfo.smallClassName}Service.add(data));
     }
 
     /**
@@ -49,7 +54,7 @@ public class ${classInfo.className}Controller {
     @Operation(summary = "删除")
     public CustomizeResult<?> del(@Valid @RequestBody CommonEntity<IdDto> param){
         ${classInfo.smallClassName}Service.del(param.getData().getId());
-        return CustomizeResult.success();
+        return ResultFactory.success();
     }
 
     /**
@@ -57,9 +62,10 @@ public class ${classInfo.className}Controller {
     */
     @PostMapping("/upd")
     @Operation(summary = "修改")
-    public CustomizeResult<?> upd(@Valid @RequestBody CommonEntity<${classInfo.className}DO> param){
-        ${classInfo.smallClassName}Service.upd(param.getData());
-        return CustomizeResult.success();
+    public CustomizeResult<?> upd(@Valid @RequestBody CommonEntity<${classInfo.className}UpdDTO> param){
+        var data = BeanUtil.copyProperties(param.getData(),${classInfo.className}DO.class);
+        ${classInfo.smallClassName}Service.upd(data);
+        return ResultFactory.success();
     }
 
     /**
@@ -68,7 +74,7 @@ public class ${classInfo.className}Controller {
     @PostMapping("/selOne")
     @Operation(summary = "查询详情")
     public CustomizeResult<?> selOne(@Valid @RequestBody CommonEntity<IdDto> param){
-        return CustomizeResult.success(${classInfo.smallClassName}Service.selOne(param.getData().getId()));
+        return ResultFactory.success(${classInfo.smallClassName}Service.selOne(param.getData().getId()));
     }
 
     /**
@@ -76,8 +82,10 @@ public class ${classInfo.className}Controller {
     */
     @PostMapping("/selAll")
     @Operation(summary = "查询列表")
-    public CustomizeResult<?> selAll(@Valid @RequestBody CommonEntity<${classInfo.className}DO> param){
-        return CustomizeResult.success(${classInfo.smallClassName}Service.selAll(param.getData()));
+    public CustomizeResult<?> selAll(@Valid @RequestBody CommonEntity<${classInfo.className}Query> param){
+        var query = param.getData();
+        query.startPage();
+        return ResultFactory.success(${classInfo.smallClassName}Service.selAll(param.getData()));
     }
 
 }

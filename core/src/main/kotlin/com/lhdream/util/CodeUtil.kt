@@ -45,10 +45,10 @@ object KotlinCodeUtil{
 
     fun createCode(classInfos: List<ClassInfo>,groupId:String,savePath:String){
         val ktsBasePath = FileUtil.getAbsolutePath("templates/v3/kts")
-        val templates = arrayOf("controller","dao","mapper","model","service","serviceImpl","addDTO")
-        val templatesSuffix = arrayOf("java","java","xml","java","java","java","java")
-        val classFileName = arrayOf("Controller","Mapper","Mapper","DO","Service","ServiceImpl","DTO")
-        val path = arrayOf("controller","dao","mapper","model/entity","service","service/impl","model/dto")
+        val templates = arrayOf("controller","dao","mapper","model","service","serviceImpl","addDTO","updDTO","resDTO","pojoQuery")
+        val templatesSuffix = arrayOf("java","java","xml","java","java","java","java","java","java","java")
+        val classFileName = arrayOf("Controller","Mapper","Mapper","DO","Service","ServiceImpl","AddDTO","UpdDTO","ResDTO","Query")
+        val path = arrayOf("controller","dao","mapper","model/entity","service","service/impl","model/dto","model/dto","model/dto","model/query")
         classInfos.forEach { classInfo ->
             classInfo.basePackage = groupId
             for (i in templates.indices){
