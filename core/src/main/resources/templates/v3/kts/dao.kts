@@ -12,8 +12,8 @@ package ${basePackage}.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import ${basePackage}.model.entity.${className}DO;
-import ${classInfo.basePackage}.model.entity.dto.${classInfo.className}ResDTO;
-import ${classInfo.basePackage}.model.entity.query.${classInfo.className}Query;
+import ${classInfo.basePackage}.model.dto.${classInfo.className}ResDTO;
+import ${classInfo.basePackage}.model.query.${classInfo.className}Query;
 
 /**
  * ${tableComment}
