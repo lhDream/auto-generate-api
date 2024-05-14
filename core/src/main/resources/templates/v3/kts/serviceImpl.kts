@@ -60,16 +60,16 @@ public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${c
      * 查询详情
      */
     @Override
-    public ${className}DO selOne(String id){
-        return ${smallClassName}Mapper.selectById(id);
+    public ${className}ResDTO selOne(String id){
+        return ${smallClassName}Mapper.selOne(id);
     }
 
     /**
      * 查询列表
      */
     @Override
-    public List<${className}DO> selAll(${className}DO param){
-        return ${smallClassName}Mapper.selectList(new QueryWrapper<>(param));
+    public List<${className}ResDTO> selAll(${className}Query param){
+        return ${smallClassName}Mapper.selAll(param);
     }
 }
 """.trimIndent()

@@ -10,8 +10,8 @@ val tableComment = classInfo.tableComment
 package ${basePackage}.service;
 
 import ${basePackage}.model.entity.${className}DO;
-import ${classInfo.basePackage}.model.entity.dto.${classInfo.className}ResDTO;
-import ${classInfo.basePackage}.model.entity.query.${classInfo.className}Query;
+import ${classInfo.basePackage}.model.dto.${classInfo.className}ResDTO;
+import ${classInfo.basePackage}.model.query.${classInfo.className}Query;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

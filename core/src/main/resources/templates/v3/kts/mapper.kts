@@ -26,7 +26,7 @@ val res = """
     <!-- ${classInfo.tableComment}(${classInfo.tableName}) - ${classInfo.className}.xml -->
     <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="${classInfo.basePackage}.mapper.${classInfo.className}Mapper">
-        <resultMap id = "baseMap" type = "${classInfo.basePackage}.model.dto.${classInfo.className}DTO">
+        <resultMap id = "baseMap" type = "${classInfo.basePackage}.model.dto.${classInfo.className}ResDTO">
 ${resultMap.toString()}
         </resultMap>
         
@@ -34,12 +34,17 @@ ${resultMap.toString()}
             ${sql}
         </sql>
         
-        <insert id = "selOne" parameterType="java.lang.String">
-            select <include refid = "allColumn"/> from ${classInfo.tableName} where id = #{id} and is_deleted = 0
-        </insert>
+        <select id = "selOne" resultMap="baseMap">
+            select 
+            <include refid = "allColumn"/> 
+            from ${classInfo.tableName} 
+            where id = #{id} and is_deleted = 0
+        </select>
         
         <select id="selAll" resultMap="baseMap">
-            select <include refid = "allColumn"/> from ${classInfo.tableName} tb
+            select 
+            <include refid = "allColumn"/> 
+            from ${classInfo.tableName} tb
             <where>
 ${selAll}
             </where>

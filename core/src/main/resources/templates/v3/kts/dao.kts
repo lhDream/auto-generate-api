@@ -21,5 +21,9 @@ import ${classInfo.basePackage}.model.query.${classInfo.className}Query;
 @Mapper
 public interface ${className}Mapper extends BaseMapper<${className}DO>{
 
+    ${className}ResDTO selOne(String id);
+
+    List<${className}ResDTO> selAll(${className}Query param);
+
 }
 """.trimIndent()
