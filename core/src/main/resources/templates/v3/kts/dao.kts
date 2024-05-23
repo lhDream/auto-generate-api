@@ -15,6 +15,8 @@ import ${basePackage}.model.entity.${className}DO;
 import ${classInfo.basePackage}.model.dto.${classInfo.className}ResDTO;
 import ${classInfo.basePackage}.model.query.${classInfo.className}Query;
 
+import java.util.List;
+
 /**
  * ${tableComment}
  */

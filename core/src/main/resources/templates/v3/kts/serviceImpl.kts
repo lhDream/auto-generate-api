@@ -17,6 +17,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import ${basePackage}.service.${className}Service;
 import ${basePackage}.mapper.${className}Mapper;
 import ${basePackage}.model.entity.${className}DO;
+import ${basePackage}.model.dto.${className}ResDTO;
+import ${basePackage}.model.query.${className}Query;
 
 import java.util.List;
 

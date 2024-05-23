@@ -69,3 +69,12 @@ object KotlinCodeUtil{
     }
 
 }
+
+object JavaScriptCodeUtil{
+
+    fun createCode(classInfos: List<ClassInfo>,groupId:String,savePath:String){
+        val engine = ScriptUtil.getScript("js")
+    }
+
+}
+
