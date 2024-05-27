@@ -30,6 +30,7 @@ import com.aodun.lh.model.query.BasePageQuery;
 
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.*;
 
 /**
  * ${classInfo.tableComment}

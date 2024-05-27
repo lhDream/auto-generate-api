@@ -8,7 +8,11 @@ classInfo.fieldInfos.forEach {
     field.appendLine("    /**")
         .appendLine("     * ${it.columnComment}")
         .appendLine("     */")
-    field.appendLine("    @Schema(description = \"${it.columnComment}\")")
+    if (it.field == "id") {
+        field.appendLine("    @Schema(description = \"${it.columnComment}\")")
+    }else{
+        field.appendLine("    @Schema(description = \"${it.columnComment}\",requiredMode = REQUIRED)")
+    }
     if (it.fieldType == "LocalDateTime"){
         field.appendLine("    @JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\")")
         field.appendLine("    @DateTimeFormat(pattern = \"yyyy-MM-dd HH:mm:ss\")")
@@ -28,6 +32,7 @@ import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.*;
 
 /**
  * ${classInfo.tableComment}

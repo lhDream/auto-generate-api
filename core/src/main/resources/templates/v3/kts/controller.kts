@@ -6,7 +6,6 @@ val classInfo = bindings["data"] as ClassInfo
 package ${classInfo.basePackage}.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.aodun.caution.model.dto.IdDto;
 import com.aodun.common.commonEntityMg.entity.CommonEntity;
 import com.aodun.lh.factory.ResultFactory;
 import ${classInfo.basePackage}.service.${classInfo.className}Service;
